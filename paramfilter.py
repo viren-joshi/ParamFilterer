@@ -2,6 +2,15 @@ import argparse
 from include import filterer
 import datetime
 
+banner = """\033[0;34;40m
+         ___                          _     _        _             
+        | _ \ __ _  _ _  __ _  _ __  | |   (_) _ _  | |_  ___  _ _ 
+        |  _// _` || '_|/ _` || '  \ | |__ | || ' \ |  _|/ -_)| '_|
+        |_|  \__/_||_|  \__/_||_|_|_||____||_||_||_| \__|\___||_|    \033[0;37;40m
+
+                                        \033[1;32mby virenjoshi\033[0;37m
+"""
+print(banner)
 
 parser = argparse.ArgumentParser(description="ParamLinter")
 parser.add_argument("-p","--path", help="Path to the file containing the urls to filter",required=True)
@@ -11,10 +20,7 @@ args = parser.parse_args()
 
 file = open(args.path, "r")
 success = []
-i = 0
 for line in file:
-    if i > 199:
-        break
     line = line.strip()
     if line.startswith("http"):
         # continue to checking
@@ -24,12 +30,15 @@ for line in file:
         # add "http://" to the line and then send to the checking
         if filterer("http://" + line).get_data():
             success.append("http://" + line)
-    i += 1
 
 now = datetime.datetime.now()
-outputFile = open(f"results/output_{now.strftime('%Y_%m_%d %H_%M_%S')}.txt", "a")
-for line in success:
-    outputFile.write(line + "\n")
+if(success):
+    outputFile = open(f"results/output_{now.strftime('%Y_%m_%d %H_%M_%S')}.txt", "a")
+    for line in success:
+        outputFile.write(line + "\n")
 
-file.close()
-outputFile.close()
+    file.close()
+    outputFile.close()
+    print(f"Results saved to results/output_{now.strftime('%Y_%m_%d %H_%M_%S')}.txt")
+else :
+    print("None of the parameters are up :/")

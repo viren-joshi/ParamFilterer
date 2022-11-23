@@ -1,9 +1,4 @@
 import requests
-from colored import fg
-
-green = fg('green')
-red = fg('red')
-yellow = fg('yellow')
 
 class Filterer:
     def __init__(self, url:str, fuzzText: str):
@@ -17,12 +12,12 @@ class Filterer:
         if(response.status_code == 200):
              return self.check_fuzz(response.text)
         else: 
-            print(red + "Eliminated : " ,self.url, " with status code : ", response.status_code)
+            print('\033[0;31;40m' + "Eliminated : " ,self.url, " with status code : ", response.status_code,'\033[0;37;40m')
             return False
     
     def check_fuzz(self, responseText:str) -> bool:
         if self.fuzzText in responseText:
-            print(green + "Text Reflected with query : ", self.url)
+            print('\033[3;32;40m' + "Text Reflected with query : "+ self.url+'\033[0;37;40m')
             return True
 
             # call selenium here.
