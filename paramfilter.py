@@ -1,5 +1,5 @@
 import argparse
-from include import filterer,browseResults
+from include import filterer
 import datetime
 
 
@@ -7,7 +7,6 @@ parser = argparse.ArgumentParser(description="ParamLinter")
 parser.add_argument("-p","--path", help="Path to the file containing the urls to filter",required=True)
 parser.add_argument("-f","--fuzz", help="fuzz text",required=True)
 parser.add_argument("-hti","--htmli", help="[Y/N] filter possible html injections",default=False)
-parser.add_argument("-h","--help", help="help",default=False)
 args = parser.parse_args()
 
 file = open(args.path, "r")
@@ -34,7 +33,3 @@ for line in success:
 
 file.close()
 outputFile.close()
-
-askSelenuim = input("Would you like to the successful results in the browser? [Y/N]: ")
-if askSelenuim.lower() == "y":
-    pass
