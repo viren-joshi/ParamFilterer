@@ -6,8 +6,8 @@ The input is a file with a list of parameters for a domain.
 
 ### Usage Instructions
 ```
-$ git clone https://github.com/viren-joshi/ParamFilterer
-$ cd ParamFilterer
+$ git clone https://github.com/viren-joshi/ParamLinter
+$ cd ParamLinter
 $ python paramlinter.py -p <fileName> -f "FUZZ"
 ```
 
