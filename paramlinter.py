@@ -16,6 +16,7 @@ parser = argparse.ArgumentParser(description="ParamLinter")
 parser.add_argument("-p","--path", help="Path to the file containing the urls to filter",required=True)
 parser.add_argument("-f","--fuzz", help="fuzz text",required=True)
 parser.add_argument("-hti","--htmli", help="[Y/N] filter possible html injections",default=False)
+parser.add_argument("-v","--verbose", help="verbose, get more info. about what the linter is doing.", default=False)
 args = parser.parse_args()
 
 file = open(args.path, "r")
@@ -24,7 +25,7 @@ for line in file:
     line = line.strip()
     if line.startswith("http"):
         # continue to checking
-        if filterer.Filterer(line, fuzzText=args.fuzz).get_data():
+        if filterer.Filterer(line, fuzzText=args.fuzz, verbose=args.verbose).get_data():
             success.append(line)
     else:
         # add "http://" to the line and then send to the checking

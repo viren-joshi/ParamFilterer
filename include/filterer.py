@@ -1,10 +1,11 @@
 import requests
 
 class Filterer:
-    def __init__(self, url:str, fuzzText: str):
+    def __init__(self, url:str, fuzzText:str, verbose:bool):
         self.url = url
         self.query = url[url.find("?")+1:url.find("=")]
         self.fuzzText = fuzzText
+        self.verbose = verbose
 
 
     def get_data(self) -> bool:
@@ -12,7 +13,8 @@ class Filterer:
         if(response.status_code == 200):
              return self.check_fuzz(response.text)
         else: 
-            print('\033[0;31;40m' + "Eliminated : " ,self.url, " with status code : ", response.status_code,'\033[0;37;40m')
+            if(self.verbose):
+                print('\033[0;31;40m' + "Eliminated : " ,self.url, " with status code : ", response.status_code,'\033[0;37;40m')
             return False
     
     def check_fuzz(self, responseText:str) -> bool:
