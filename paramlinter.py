@@ -37,6 +37,7 @@ for line in file:
         time.sleep(1) # Making sure not to get rate-limited.
     except:
         print("Error Ocurred :/")
+        break
     
 
 
